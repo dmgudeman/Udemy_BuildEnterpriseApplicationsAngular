@@ -1,5 +1,5 @@
 import { Component, OnInit, OnDestroy }        from '@angular/core';
-import { AngularFire }      from 'angularfire2';
+import { AngularFire, FirebaseListObservable }      from 'angularfire2';
 
 @Component({
     selector: 'app-root',
@@ -8,7 +8,8 @@ import { AngularFire }      from 'angularfire2';
 })
 export class AppComponent implements OnInit {
     title = 'app works!';
-    cuisines;
+    cuisines: FirebaseListObservable<any[]>;
+    restaurant;
     // private subscription;
 
     constructor(
@@ -18,12 +19,23 @@ export class AppComponent implements OnInit {
     ngOnInit () {
         // cuisines not an array but a firebase observable
         this.cuisines = this.af.database.list('/cuisines');
+        this.restaurant = this.af.database.object('/restaurant');
 
         // ---when this portion is added an array is returned---
         // .subscribe(x => {
         //     this.cuisines = x;
         //     console.log(this.cuisines);
         // });
+
+    }
+
+    add() {
+        this.cuisines.push({
+            name: 'Asian',
+            details: {
+                description: '...'
+            }
+        });
 
     }
     // --not needed when the list is called with the async pipe--
