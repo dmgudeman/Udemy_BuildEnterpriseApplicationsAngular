@@ -30,8 +30,14 @@ export class AppComponent implements OnInit {
     }
 
     update() {
-        // this.af.database.object('/restaurant').set({name: 'New Name', rating: 5})
-        this.af.database.object('/favorites/1/10').set(null);
+        this.af.database.object('/restaurant').set({name: 'New Name', rating: 5})
+        // this.af.database.object('/favorites/1/10').set(null);
+    }
+
+    remove() {
+        this.af.database.object('/restaurant').remove()
+             .then(x => console.log(`SUCCESS`))
+             .catch(error => console.log(`ERROR ${error}`));
     }
 }
 

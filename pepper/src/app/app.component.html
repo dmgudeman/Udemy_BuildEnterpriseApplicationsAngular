@@ -3,6 +3,7 @@
 </h1>
 <button (click)="add()">Add</button>
 <button (click)="update()">Update</button>
+<button (click)="remove()">Remove</button>
 <ul>
     <li *ngFor= "let c of cuisines | async ">{{c.name}}</li>
 </ul>
