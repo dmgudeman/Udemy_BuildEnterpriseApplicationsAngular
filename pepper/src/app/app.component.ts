@@ -10,23 +10,14 @@ export class AppComponent implements OnInit {
     title = 'app works!';
     cuisines: FirebaseListObservable<any[]>;
     restaurant;
-    // private subscription;
 
     constructor(
         private af: AngularFire,
     ) { }
   
     ngOnInit () {
-        // cuisines not an array but a firebase observable
         this.cuisines = this.af.database.list('/cuisines');
         this.restaurant = this.af.database.object('/restaurant');
-
-        // ---when this portion is added an array is returned---
-        // .subscribe(x => {
-        //     this.cuisines = x;
-        //     console.log(this.cuisines);
-        // });
-
     }
 
     add() {
@@ -36,12 +27,11 @@ export class AppComponent implements OnInit {
                 description: '...'
             }
         });
-
     }
-    // --not needed when the list is called with the async pipe--
-    // ngOnDestroy() {
-    //     this.subscription.unsubscribe;
-    // }
 
+    update() {
+        // this.af.database.object('/restaurant').set({name: 'New Name', rating: 5})
+        this.af.database.object('/favorites/1/10').set(null);
+    }
 }
 
