@@ -4,5 +4,10 @@
 </ul>
 <h1> Restaurants<h1>
 <ul>
-    <li *ngFor= "let r of restaurants | async ">{{r.name}} - {{ (r.cuisineType | async)?.$value }}</li>
+    <li *ngFor= "let r of restaurants | async ">
+        {{r.name}}
+        <ul>
+            <li *ngFor="let f of r.featureTypes">   
+                {{ (f | async)?.$value }} </li>
+        </ul>
 </ul>
