@@ -36,7 +36,8 @@ export class AppComponent implements OnInit {
         this.restaurants = this.af.database.list('/restaurants', {
             query: {
                 orderByChild: 'rating',
-                equalTo: 5 
+                equalTo: 5,
+                limitToLast: 50 
             }
         });
 
