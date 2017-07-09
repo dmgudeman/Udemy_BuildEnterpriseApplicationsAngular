@@ -19,6 +19,7 @@ export class AppComponent implements OnInit {
                 this.photoURL = null;
                 return;
             }
+            console.log("authState", authState);
             this.displayName = authState.auth.displayName;
             this.photoURL = authState.auth.photoURL;
        });
@@ -27,9 +28,12 @@ export class AppComponent implements OnInit {
     login() {
         this.af.auth.login({
             provider: AuthProviders.Facebook,
-            method: AuthMethods.Popup
-        }).then(authState => {
-            console.log(`AFTER LOGIN ${authState}`);
+            method: AuthMethods.Popup,
+            scope: ['public_profile', 'user_friends']
+        }).then((authState: any) => {
+            this.af.database.object('/users/' + authState.uid).update({
+                accessToken: authState.facebook.accessToken
+            })
         });
     }
 
